@@ -1,0 +1,69 @@
+﻿
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.row {
+    align-content: center;
+    justify-content: center;
+    display: flex;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+.card-header {
+    font-size: 30px;
+    font-weight: 900;
+    color: #D6BA73;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.map-box {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.card-footer {
+    font-size: 18px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+}
+
+#sendMessageButton {
+    color: white;
+    background-color: #D6BA73;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: outset;
+}
+
+#leftCard {
+    margin-right: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#rightCard {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: #D6BA73;
+}
+
+

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/Content/images/owLIcon.png"
+          type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/themes/base/jquery-ui.css">
+    <link href="
+     https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css
+     " rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css" rel="stylesheet" />
+</head>
+
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/Home/Index">Wise Librarian</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Home/Index"> Ana Sayfa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/About"> Hakkımızda </a>
+                </li>
+                <!--<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/Categories/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="_blank">
+                        Kitaplar
+                    </a>-->
+                    @*<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-header">Kategoriler</div>
+                        <a class="dropdown-item" href="/Categories/Index" target="_blank">Action</a>
+                        <a class="dropdown-item" href="/Categories/Index" target="_blank">Another action</a>
+                        <a class="dropdown-item" href="/Categories/Index" target="_blank">Something else here</a>
+                    </div>*@
+                <!--</li>-->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Contact">İletişim & İstek</a>
+                </li>
+
+            </ul>
+
+            <ul class="navbar-nav" style="margin-left:250px;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle-split" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="~/Content/images/AdminNavBarLogo.svg" width="45" height="45" />
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/AdminPanel/Crud">Crud</a>
+                        <a class="dropdown-item" href="/AdminPanel/ContactMessages">Mesajlar</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown" style="padding-left:50px;">
+                    <a class="nav-link dropdown-toggle-split" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="~/Content/images/loginSvg.svg" width="35" height="35">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-header">GİRİŞLER</div>
+                        <a class="dropdown-item" href="/Login/Index">ADMİN</a>
+                        <a class="dropdown-item" href="/Login/MemberLogin">ÜYE</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+
+    
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year | AES WEB APP </p>
+    </footer>
+
+    <style>
+        footer {
+            display: grid;
+            text-align: center;
+            justify-content: center;
+            color: darkslategray;
+            position: center;
+        }
+
+        .navbar {
+            background-color: #48260D;
+            height: 134px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .navbar-collapse {
+            font-weight: 600;
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            padding-left: 140px;
+            font-family: "Book Antiqua"
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 54px;
+            color: white;
+            padding: 40px 10px 40px 100px;
+            font-family: Papyrus, fantasy;
+        }
+
+        .navbar-logo {
+            margin-left: 100px;
+        }
+
+        .dropdown-menu {
+            background-color: cornsilk;
+            border: solid;
+            border-color: #48260D;
+        }
+    </style>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+
+</html>

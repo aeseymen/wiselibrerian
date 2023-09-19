@@ -1,0 +1,578 @@
+﻿
+@{
+    ViewBag.Title = "Crud";
+}
+<link href="~/Scripts/css/CrudIndex.css" rel="stylesheet" />
+
+<h1 class="page-title">EKLEME-SİLME-GÜNCELLEME İŞLEMLERİ</h1>
+
+<div class="row">
+
+    <div id="tabs">
+
+        <ul>
+            <li><a href="#tabs-1">ÜYE</a></li>
+            <li><a href="#tabs-2">ADMİN</a></li>
+            <li><a href="#tabs-3">KİTAP</a></li>
+        </ul>
+
+        <div id="tabs-1">
+
+            <div class="row" id="headerRow">
+                <h3 class=" table-header" style="color:darkslategray; font-size: 40px; font-weight:bold;">
+                    ÜYE TABLOSU
+                </h3>
+            </div>
+            <div id="buttonsRow" class="row">
+                <button class="btn btn-success rounded btn-sm" type="button" id="addMemberButton" data-toggle="modal" data-target="#addMemberModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Yeni Üye Ekle
+                </button>
+                <button class="btn btn-danger rounded btn-sm" type="button" id="deleteAllMemberButton" data-toggle="modal" data-target="#deleteAllMemberModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                    Tüm Üyeleri Sil
+                </button>
+                <button class="btn rounded btn-sm btn-secondary" type="button" id="refreshButton" onclick="loadMembers()">
+                    <span class="mdi mdi-table-refresh"></span>
+                </button>
+            </div>
+
+            <div id="tableRow" class="row">
+                <table id="membersTable" class="table table-bordered table-striped" style=" height:450px; display:block; overflow-y: scroll;" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">Id</th>
+                            <th class="th-sm">İsim</th>
+                            <th class="th-sm">Soyisim</th>
+                            <th class="th-sm">Kullanıcı Adı</th>
+                            <th class="th-sm">Email</th>
+                            <th class="th-sm">Şifre</th>
+                            <th class="th-sm">Telefon Numarası</th>
+                            <th class="th-sm">Cinsiyet</th>
+                            <th class="th-sm">Doğum Tarihi</th>
+                            <th class="th-sm">Düzenle</th>
+                            <th class="th-sm">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="addMemberModal" title="Yeni Üye Ekle" tabindex="-1" role="dialog" aria-labelledby="addMemberModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Yeni Üye Ekle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formMember" id="formMember" @*action="valid.html"*@>
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="memberFirstName" id="memberFirstName" placeholder="İsim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="memberLastName" id="memberLastName" placeholder="Soyisim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="memberUserName" id="memberUserName" placeholder="Kullanıcı Adı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="email" name="memberEmail" id="memberEmail" placeholder="Email" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="memberPassword" id="memberPassword" placeholder="Şifre" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="memberPasswordConfirm" id="memberPasswordConfirm" placeholder="Şifreyi Tekrarlayın" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="memberPhoneNumber" id="memberPhoneNumber" placeholder="555-555-5555" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="gender" id="gender">
+                                            <option disabled selected>Cinsiyet</option>
+                                            <option value="Bay">Bay</option>
+                                            <option value="Bayan">Bayan</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-row">
+                                        <label>Doğum Tarihi:</label>
+                                        <input type="date" name="memberBirthDate" id="memberBirthDate" />
+                                    </div>
+                                    <div class="text-center modal-footer" id="addMemberInnerButton">
+                                        <input type="button" onclick="addMember()" value="Ekle" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal fade" id="editMemberModal" title="Üyeyi Düzenle" tabindex="-1" role="dialog" aria-labelledby="editMemberModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Üyeyi Düzenle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="editFormMember" id="editFormMember" @*action="valid.html"*@>
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="memberFirstName" id="memberFirstNameEdit" placeholder="İsim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="memberLastName" id="memberLastNameEdit" placeholder="Soyisim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="memberUserName" id="memberUserNameEdit" placeholder="Kullanıcı Adı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="email" name="memberEmail" id="memberEmailEdit" placeholder="Email" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="memberPassword" id="memberPasswordEdit" placeholder="Şifre" />
+                                    </div>        
+                                    <div class="input-row">
+                                        <input type="number" name="memberPhoneNumber" id="memberPhoneNumberEdit" placeholder="555-555-5555" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="gender" id="genderEdit">
+                                            <option disabled selected>Cinsiyet</option>
+                                            <option value="Bay">Bay</option>
+                                            <option value="Bayan">Bayan</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="hiddenInputMemberId" value="" />
+                                    <div class="input-row">
+                                        <label>Doğum Tarihi:</label>
+                                        <input type="date" name="memberBirthDate" id="memberBirthDateEdit" />
+                                    </div>
+                                    <div class="text-center modal-footer" id="saveEditedMemberButton">
+                                        <input type="button" onclick="saveEditModal()" value="Düzenlemeyi Kaydet" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="deleteAllMemberModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteAllMemberModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="height:300px; width:700px;">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title fw-bold text-danger">
+                                DİKKAT !
+                            </h4>
+                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <p class="text-center h4">Bütün kayıtlar silinecek, emin misiniz ?</p>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger" id="btnYes" onclick="deleteAllMembers()" data-dismiss="modal">EVET</button>
+                            <button type="button" class="btn btn-primary" id="btnNo" data-dismiss="modal">HAYIR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="tabs-2">
+
+            <div class="row" id="headerRow">
+                <h3 class=" table-header" style="color:darkslategray; font-size: 40px; font-weight:bold;">
+                    ADMIN TABLOSU
+                </h3>
+            </div>
+            <div id="buttonsRow" class="row">
+                <button class="btn btn-success rounded btn-sm" type="button" id="addAdminButton" data-toggle="modal" data-target="#addAdminModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Yeni Admin Ekle
+                </button>
+                <button class="btn btn-danger rounded btn-sm" type="button" id="deleteAllAdminButton" data-toggle="modal" data-target="#deleteAllAdminModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                    Tüm Adminleri Sil
+                </button>
+                <button class="btn rounded btn-sm btn-secondary" type="button" id="refreshButton" onclick="loadAdmins()">
+                    <span class="mdi mdi-table-refresh"></span>
+                </button>
+            </div>
+
+            <div id="tableRow" class="row">
+                <table id="adminsTable" class="table table-bordered table-striped" style=" height:450px; display:block; overflow-y: scroll;" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">Id</th>
+                            <th class="th-sm">Sicil Numarası</th>
+                            <th class="th-sm">İsim</th>
+                            <th class="th-sm">Soyisim</th>
+                            <th class="th-sm">Email</th>
+                            <th class="th-sm">Şifre</th>
+                            <th class="th-sm">Telefon Numarası</th>
+                            <th class="th-sm">Cinsiyet</th>
+                            <th class="th-sm">Doğum Tarihi</th>
+                            <th class="th-sm">Düzenle</th>
+                            <th class="th-sm">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="addAdminModal" title="Yeni Admin Ekle" tabindex="-1" role="dialog" aria-labelledby="addAdminModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Yeni Admin Ekle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formAdmin" id="formAdmin" @*action="valid.html"*@>
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="adminFirstName" id="adminFirstName" placeholder="İsim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="adminLastName" id="adminLastName" placeholder="Soyisim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="email" name="adminEmail" id="adminEmail" placeholder="Email" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="adminPassword" id="adminPassword" placeholder="Şifre" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="adminPasswordConfirm" id="adminPasswordConfirm" placeholder="Şifreyi Tekrarlayın" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="adminPhoneNumber" id="adminPhoneNumber" placeholder="555-555-5555" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="gender" id="genderAdmin">
+                                            <option disabled selected>Cinsiyet</option>
+                                            <option value="Bay">Bay</option>
+                                            <option value="Bayan">Bayan</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-row">
+                                        <label>Doğum Tarihi:</label>
+                                        <input type="date" name="adminBirthDate" id="adminBirthDate" />
+                                    </div>
+                                    <div class="text-center modal-footer" id="addAdminInnerButton">
+                                        <input type="button" onclick="addMember()" value="Ekle" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal fade" id="editAdminModal" title="Admini Düzenle" tabindex="-1" role="dialog" aria-labelledby="editAdminModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Admini Düzenle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="editAdminMember" id="editAdminMember">
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="adminFirstNameEdit" id="adminFirstNameEdit" placeholder="İsim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="adminLastNameEdit" id="adminLastNameEdit" placeholder="Soyisim" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="email" name="adminEmailEdit" id="adminEmailEdit" placeholder="Email" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="password" name="adminPasswordEdit" id="adminPasswordEdit" placeholder="Şifre" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="adminPhoneNumberEdit" id="adminPhoneNumberEdit" placeholder="555-555-5555" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="genderEdit" id="genderAdminEdit">
+                                            <option disabled selected>Cinsiyet</option>
+                                            <option value="Bay">Bay</option>
+                                            <option value="Bayan">Bayan</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="hiddenInputAdminId" value="" />
+                                    <div class="input-row">
+                                        <label>Doğum Tarihi:</label>
+                                        <input type="date" name="adminBirthDateEdit" id="adminBirthDateEdit" />
+                                    </div>
+                                    <div class="text-center modal-footer" id="saveEditedAdminButton">
+                                        <input type="button" onclick="saveEditAdminModal()" value="Düzenlemeyi Kaydet" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="deleteAllAdminModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteAllAdminModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="height:300px; width:700px;">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title fw-bold text-danger">
+                                DİKKAT !    
+                            </h4>
+                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <p class="text-center h4">Bütün kayıtlar silinecek, emin misiniz ?</p>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger" id="btnYes" onclick="deleteAllAdmins()" data-dismiss="modal">EVET</button>
+                            <button type="button" class="btn btn-primary" id="btnNo" data-dismiss="modal">HAYIR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="tabs-3">
+
+            <div class="row" id="headerRow">
+                <h3 class=" table-header" style="color:darkslategray; font-size: 40px; font-weight:bold;">
+                    KİTAP TABLOSU
+                </h3>
+            </div>
+            <div id="buttonsRow" class="row">
+                <button class="btn btn-success rounded btn-sm" type="button" id="addBookButton" data-toggle="modal" data-target="#addBookModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Yeni Kitap Ekle
+                </button>
+                <button class="btn btn-danger rounded btn-sm" type="button" id="deleteAllBooksButton" data-toggle="modal" data-target="#deleteAllBooksModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                    Tüm Kitapları Sil
+                </button>
+                <button class="btn rounded btn-sm btn-secondary" type="button" id="refreshButton" onclick="loadBooks()">
+                    <span class="mdi mdi-table-refresh"></span>
+                </button>
+            </div>
+
+            <div id="tableRow" class="row">
+                <table id="booksTable" class="table table-bordered table-striped" style=" height:450px; display:block; overflow-y: scroll;" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">Id</th>
+                            <th class="th-sm">Adet</th>
+                            <th class="th-sm">Isbn</th>
+                            <th class="th-sm">Adı</th>
+                            <th class="th-sm">Sayfa Sayısı</th>
+                            <th class="th-sm">Thumbnail Url</th>
+                            <th class="th-sm">Kitabın Durumu</th>
+                            <th class="th-sm">Kitabın Materyali</th>
+                            @*<th class="th-sm">Kategori</th>*@
+                            <th class="th-sm">Düzenle</th>
+                            <th class="th-sm">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="addBookModal" title="Yeni Kitap Ekle" tabindex="-1" role="dialog" aria-labelledby="addBookModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Yeni Kitap Ekle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formBook" id="formBook">
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="bookName" id="bookName" placeholder="Adı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="bookIsbn" id="bookIsbn" placeholder="Isbn" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="bookNumber" id="bookNumber" placeholder="Isbn" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="bookPageCount" id="bookPageCount" placeholder="Sayfa Sayısı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="url" name="bookThumbnailUrl" id="bookThumbnailUrl" placeholder="Thumbnail Url" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="bookMaterial" id="bookMaterial">
+                                            <option disabled selected>Materyal Tipi</option>
+                                            <option value="Kitap">Kitap</option>
+                                            <option value="E-Kitap">E-Kitap</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="bookStatus" id="bookStatus" placeholder="Kitap Durumu" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="bookCategory" id="bookCategory" placeholder="Kategori" />
+                                    </div>
+                                    <div class="text-center modal-footer" id="addBookInnerButton">
+                                        <input type="button" onclick="addBook()" value="Ekle" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editBookModal" title="Kitabı Düzenle" tabindex="-1" role="dialog" aria-labelledby="editBookModal" aria-hidden="true" data-backdrop="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-center align-content-center">
+                            <h3 class="modal-title">
+                                <b>Kitabı Düzenle</b>
+                            </h3>
+                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="editBookMember" id="editBookMember">
+                                <div class="input_container">
+                                    <div class="input-row">
+                                        <input type="text" name="bookNameEdit" id="bookNameEdit" placeholder="Adı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="bookIsbnEdit" id="bookIsbnEdit" placeholder="Isbn" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="number" name="bookPageCountEdit" id="bookPageCountEdit" placeholder="Sayfa Sayısı" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="url" name="bookThumbnailUrlEdit" id="bookThumbnailUrlEdit" placeholder="Thumbnail Url" />
+                                    </div>
+                                    <div class="input-row">
+                                        <select name="bookMaterialEdit" id="bookMaterialEdit">
+                                            <option disabled selected>Materyal Tipi</option>
+                                            <option value="Kitap">Kitap</option>
+                                            <option value="E-Kitap">E-Kitap</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="bookStatusEdit" id="bookStatusEdit" placeholder="Kitap Durumu" />
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" name="bookCategoryEdit" id="bookCategoryEdit" placeholder="Kategori" />
+                                    </div>
+                                    <input type="hidden" id="hiddenInputBookId" value="" />
+                                    <div class="text-center modal-footer" id="saveEditedBookButton">
+                                        <input type="button" onclick="saveBookEditModal()" value="Düzenlemeyi Kaydet" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="deleteAllBooksModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteAllBookModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="height:300px; width:700px;">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title fw-bold text-danger">
+                                DİKKAT !
+                            </h4>
+                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <p class="text-center h4">Bütün kayıtlar silinecek, emin misiniz ?</p>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger" id="btnYes" onclick="deleteAllBooks()" data-dismiss="modal">EVET</button>
+                            <button type="button" class="btn btn-primary" id="btnNo" data-dismiss="modal">HAYIR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/customScripts/CrudIndex.js"></script>
+}
+
+

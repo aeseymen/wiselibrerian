@@ -1,0 +1,155 @@
+﻿input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+*,*::after, *:before{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+body {
+    background-color: cornsilk;
+    
+}
+.ui-tabs {
+    width: fit-content;
+}
+.ui-tabs-nav li {
+    width: 30%;
+}
+.page-title {
+    font-weight: 900;
+    font-size: 55px;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: darkslategray;
+}
+
+
+#headerRow {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+#refreshButton{
+    margin-top: 10px;
+    width:50px;
+    height:35px;
+    
+}
+
+.mdi:before, .mdi-set {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: x-large;
+    text-rendering: auto;
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: block; 
+}
+
+#addMemberButton, #deleteAllMemberButton {
+    margin-top: 10px;
+    width: 200px;
+}
+#buttonsRow {
+    position: relative;
+    display: flex;
+    justify-content: space-between ;
+    vertical-align: text-bottom;
+    margin: 0 250px 20px;
+    padding-left: 75px;
+}
+
+th {
+    color:white;
+    background-color: #FFA500;
+    position: sticky;
+    top: 0;
+}
+
+
+
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    height: 900px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    border: 2px solid rgba(0,0,0,0.3);
+}
+.modal-title {
+    color:darkslategray;
+    font-size: 40px;
+    font-family: 'Teko', sans-serif;
+}
+input.text {
+    margin-bottom: 12px;
+    width: 95%;
+    padding: .4em;
+}
+.input_container, .input-row {
+    margin-bottom: 12px;
+}
+.input_container input:not([type="submit"]){
+    width: 100%;
+    margin: 0 0 3px;
+    background-color: #d6d6d6;
+    color: #000;
+    padding: 10px 15px;
+    height: 50px;
+    line-height: 30px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    outline: 0;
+    transition: all 0.5s ease-out;
+}
+.input_container input:not([type="submit"]):focus{
+    border-color: #2793d2
+}
+*::-webkit-input-placeholder{
+    opacity:1;
+    color: #000
+}
+.input_container input[type="button"]{
+    padding: 10px 30px;
+    font-size: 15px;
+    line-height: 20px;
+    height:40px;
+    text-align:center;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #fff;
+    background-color: darkslategray;
+    border: 0;
+    transition: all 0.5s ease-out;
+    border-radius: 5px;
+}
+.input_container input[type="submit"]:hover{
+    background-color:forestgreen;
+}
+label.error{
+    font-weight: 700;
+    display:block;
+    color:#f00;
+    font-size:12px;
+}

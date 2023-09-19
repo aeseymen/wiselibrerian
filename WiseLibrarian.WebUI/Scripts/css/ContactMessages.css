@@ -1,0 +1,113 @@
+﻿body {
+    background-color: cornsilk;
+}
+
+#mailContainer {
+    background-color: white;
+    border: ridge;
+    border-top:0;
+    border-block-color: #48260D;
+}
+
+#mailBoxHeaderRow {
+    display: table-cell;
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+    border: ridge;
+    border-bottom:0;
+    border-block-color: #48260D;
+    padding-top: 20px;
+    width: 1110px;
+    margin-bottom: 30px;
+}
+#mailBoxHeader {
+    font-size: 30px;
+    font-weight: bolder;
+    font-family: "Book Antiqua";
+    color: #48260D;
+}
+
+
+.card {
+    background: #fff;
+    margin-bottom: 30px;
+    transition: .5s;
+    border:0;
+    border-radius: .1875rem;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    box-shadow: none;
+}
+
+.inbox .mail_list .list-group-item {
+    border: 0;
+    padding: 15px;
+    margin-bottom: 1px
+}
+
+    .inbox .mail_list .list-group-item:hover {
+        background: #eceeef
+    }
+
+
+    .inbox .mail_list .list-group-item .controls {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: top;
+        text-align: center;
+        margin-top: 11px
+    }
+
+        .inbox .mail_list .list-group-item .controls .checkbox {
+            display: inline-block
+        }
+
+            .inbox .mail_list .list-group-item .controls .checkbox label {
+                margin: 0;
+                padding: 10px
+            }
+
+
+
+
+    .inbox .mail_list .list-group-item .media-heading a {
+        color: #555;
+        font-weight: normal
+    }
+
+        .inbox .mail_list .list-group-item .media-heading a:hover,
+        .inbox .mail_list .list-group-item .media-heading a:focus {
+            text-decoration: none
+        }
+
+    .inbox .mail_list .list-group-item .media-heading time {
+        font-size: 13px;
+        margin-right: 10px
+    }
+
+
+    .inbox .mail_list .list-group-item .msg {
+        margin-bottom: 0px
+    }
+
+.inbox .mail_list .unread {
+    border-left: 2px solid
+}
+
+    .inbox .mail_list .unread .media-heading a {
+        color: #333;
+        font-weight: 700
+    }
+
+        
+.inbox .bg-gray {
+    background: #e6e6e6
+}
+
+@media only screen and (max-width: 767px) {
+    .inbox .mail_list .list-group-item .controls {
+        margin-top: 3px
+    }
+}
